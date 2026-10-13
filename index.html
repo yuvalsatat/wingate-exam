@@ -569,7 +569,7 @@ function render(){
   else if(S.mode==="qz"){if(S.qz===null){S.qz=draw("qz",QZ.length);}app.innerHTML=qzCard(S.qz);}
   else app.innerHTML=examView();
 }
-function top(){app.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});}
+function goTop(){app.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});}
 
 document.addEventListener("click",ev=>{
   const b=ev.target.closest("[data-act]");if(!b||b.tagName==="SELECT"||b.type==="checkbox")return;
@@ -582,15 +582,15 @@ document.addEventListener("click",ev=>{
       break;}
     case "openall":{const n=+b.dataset.n;const all=[...Array(n).keys()].every(i=>S.open[b.dataset.key+":"+i]);for(let i=0;i<n;i++)S.open[b.dataset.key+":"+i]=!all;break;}
     case "keytoggle":S.keyOpen[b.dataset.key]=!S.keyOpen[b.dataset.key];break;
-    case "next-ex":S.ex=draw("ex",EX.length,S.ex);clearKey("P-ex-"+S.ex+":");render();top();return;
-    case "next-sc":S.sc=draw("sc",SC.length,S.sc);clearKey("P-sc-"+S.sc+":");delete S.keyOpen["P-sc-"+S.sc];render();top();return;
+    case "next-ex":S.ex=draw("ex",EX.length,S.ex);clearKey("P-ex-"+S.ex+":");render();goTop();return;
+    case "next-sc":S.sc=draw("sc",SC.length,S.sc);clearKey("P-sc-"+S.sc+":");delete S.keyOpen["P-sc-"+S.sc];render();goTop();return;
     case "next-qz":S.qz=draw("qz",QZ.length,S.qz);clearKey("P-qz-"+S.qz+":");break;
     case "qz-reset":S.qzTally={n:0,pts:0};break;
-    case "exam-start":newExam();render();top();return;
-    case "exam-next":S.exam.i++;render();top();return;
-    case "exam-prev":S.exam.i--;render();top();return;
-    case "exam-go":S.exam.done=false;S.exam.i=+b.dataset.i;render();top();return;
-    case "exam-finish":S.exam.done=true;clockStop();render();top();return;
+    case "exam-start":newExam();render();goTop();return;
+    case "exam-next":S.exam.i++;render();goTop();return;
+    case "exam-prev":S.exam.i--;render();goTop();return;
+    case "exam-go":S.exam.done=false;S.exam.i=+b.dataset.i;render();goTop();return;
+    case "exam-finish":S.exam.done=true;clockStop();render();goTop();return;
     case "clock":clock.running?clockStop():clockStart();return;
     case "clock-reset":clockReset();return;
   }
