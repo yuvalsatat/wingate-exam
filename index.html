@@ -115,8 +115,8 @@ body{margin:0}
 
 <div class="wrap" dir="rtl" lang="he">
   <header class="top">
-    <h1>מבחן מעשי · מדריך חדר כושר</h1>
-    <p class="lede">אתה הבוחן. מגרילים כרטיס, אתה שואל, היא עונה בעל פה ומדגימה. פותחים את התשובה ומסמנים נכון, חלקי או פספסה.</p>
+    <h1>מבחן מעשי · מדריכת חדר כושר</h1>
+    <p class="lede">מגרילים כרטיס, עונים בקול ומדגימים מול מראה, ורק אז פותחים את התשובה ומסמנים בכנות: נכון, חלקי או פספסתי.</p>
   </header>
 
   <nav class="bar" aria-label="מצבי תרגול">
@@ -143,7 +143,7 @@ body{margin:0}
       <span><i class="dot" style="--pc:var(--p-green)"></i>ידיים</span>
       <span><i class="dot" style="--pc:var(--p-white)"></i>בטן וליבה</span>
     </div>
-    <p style="margin-top:10px">התוכן בנוי על החומר שנבדק בדרך כלל בקורס מדריכי חדר כושר (הדגמה, שרירים, מפרקים ומישורים, טעויות, נשימה ובטיחות, בניית תוכנית ועקרונות אימון). זה לא מאגר השאלות הרשמי של וינגייט, ושווה להשוות מול חוברת הקורס שלה.</p>
+    <p style="margin-top:10px">התוכן בנוי על החומר שנבדק בדרך כלל בקורס מדריכי חדר כושר (הדגמה, שרירים, מפרקים ומישורים, טעויות, נשימה ובטיחות, בניית תוכנית ועקרונות אימון). זה לא מאגר השאלות הרשמי של וינגייט, ושווה להשוות מול חוברת הקורס שלך.</p>
   </footer>
 </div>
 
@@ -461,7 +461,7 @@ function qItem(k,q,a){
   <div class="marks" role="group" aria-label="סימון תשובה">
    <button class="mark m-ok" data-act="mark" data-k="${k}" data-v="ok" aria-pressed="${m==="ok"}">נכון</button>
    <button class="mark m-half" data-act="mark" data-k="${k}" data-v="half" aria-pressed="${m==="half"}">חלקי</button>
-   <button class="mark m-miss" data-act="mark" data-k="${k}" data-v="miss" aria-pressed="${m==="miss"}">פספסה</button>
+   <button class="mark m-miss" data-act="mark" data-k="${k}" data-v="miss" aria-pressed="${m==="miss"}">פספסתי</button>
   </div></div>
   <div class="ans"${open?"":" hidden"}>${a}</div></li>`;
 }
@@ -487,12 +487,12 @@ function scCard(idx,key,practice){
   return `<article class="card">
    <header class="ttl"><span class="eyebrow">תרחיש מתאמן · בני לו תוכנית אימון</span><h2>${s.t}</h2></header>
    <p class="profile">${s.p}</p>
-   <p class="note">היא מתכננת בקול: מה היא שואלת קודם, ואיך נראית התוכנית (תרגילים, סטים, חזרות, מנוחה, עצימות, אירובי, דגשים). אתה מסמן כל נקודה שהיא אמרה.</p>
+   <p class="note">תכנני בקול: מה את שואלת קודם, ואיך נראית התוכנית (תרגילים, סטים, חזרות, מנוחה, עצימות, אירובי, דגשים). אחר כך פתחי את המפתח וסמני כל נקודה שאמרת.</p>
    ${scoreLine(scScore(key,s),s.must.length)}
    <button class="btn ghost" data-act="keytoggle" data-key="${key}" aria-expanded="${open}" style="align-self:flex-start">${open?"הסתר מפתח":"הצג מפתח תשובה"}</button>
    <div${open?"":" hidden"} style="display:flex;flex-direction:column;gap:12px">
     <div class="ans"><span class="lbl">מה צריך לברר לפני שבונים תוכנית</span>${list(s.ask)}</div>
-    <div><span class="lbl">נקודות שהתוכנית צריכה לכלול · סמן מה שאמרה</span>
+    <div><span class="lbl">נקודות שהתוכנית צריכה לכלול · סמני מה שאמרת</span>
      ${s.must.map((m,i)=>{const id=`c-${key.replace(/[^\w]/g,"")}-${i}`;return `<label class="check" for="${id}"><input type="checkbox" id="${id}" data-act="check" data-k="${key}:${i}"${S.checks[key+":"+i]?" checked":""}><span>${m}</span></label>`}).join("")}
     </div>
    </div>
@@ -533,7 +533,7 @@ function itemScore(it,i){const k=itemKey(it,i);
 function examView(){
   const E=S.exam;
   if(!E)return `<article class="card"><header class="ttl"><span class="eyebrow">מבחן מלא</span><h2>שלושה תרגילים, תרחיש אחד, שש שאלות בזק</h2></header>
-   <p>כרטיסים אקראיים כמו ביום המבחן. השעון מתחיל לרוץ כשלוחצים התחל. בסוף מקבלים ציון לפי הסימונים שלך.</p>
+   <p>כרטיסים אקראיים כמו ביום המבחן. השעון מתחיל לרוץ כשלוחצים התחל. בסוף מקבלים ציון לפי מה שסימנת.</p>
    <div class="actions"><button class="btn primary" data-act="exam-start">התחל מבחן</button></div></article>`;
   if(E.done)return summary();
   const it=E.items[E.i],k=itemKey(it,E.i);
@@ -552,7 +552,7 @@ function summary(){
   const row=(name,g,m)=>{const pct=Math.round(p(g,m)*100);return `<div class="row"><span><b>${name}</b></span><span style="font-variant-numeric:tabular-nums">${g}/${m} · ${pct}%</span><div class="meter"><i style="width:${pct}%"></i></div></div>`;};
   const exNames=E.items.filter(x=>x.t==="ex").map(x=>EX[x.id].name).join(", ");
   return `<article class="card">
-   <header class="ttl"><span class="eyebrow">סיכום מבחן · זמן ${fmt(elapsed())}</span><h2>הציון שלה</h2></header>
+   <header class="ttl"><span class="eyebrow">סיכום מבחן · זמן ${fmt(elapsed())}</span><h2>הציון שלך</h2></header>
    <div class="big">${total}</div>
    <div class="rows">${row("תרגילים ("+exNames+")",exG,exM)}${row("תרחיש: "+SC[E.items[3].id].t,scG,scM)}${row("שאלות בזק",qG,qM)}</div>
    <p class="note">משקל: תרגילים 50%, תרחיש 25%, שאלות בזק 25%. שאלה שלא סומנה נספרת כאפס.</p>
